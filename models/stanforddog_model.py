@@ -14,10 +14,10 @@ class Generator(nn.Module):
     def __init__(self):
         super().__init__()
 
-        self.tconv1 = nn.ConvTranspose2d(74, 1024, 1, 1, bias=False)
+        self.tconv1 = nn.ConvTranspose2d(74, 1024, 2, 1, bias=False)
         self.bn1 = nn.BatchNorm2d(1024)
 
-        self.tconv2 = nn.ConvTranspose2d(1024, 128, 7, 1, bias=False)
+        self.tconv2 = nn.ConvTranspose2d(1024, 128, 7, 2, bias=False)
         self.bn2 = nn.BatchNorm2d(128)
 
         self.tconv3 = nn.ConvTranspose2d(128, 64, 4, 2, padding=1, bias=False)
