@@ -3,6 +3,8 @@ import torch.nn as nn
 import torch.optim as optim
 import torchvision.utils as vutils
 import numpy as np
+import matplotlib
+matplotlib.use('agg')
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import time
@@ -20,6 +22,8 @@ elif(params['dataset'] == 'SVHN'):
 elif(params['dataset'] == 'CelebA'):
     from models.celeba_model import Generator, Discriminator, DHead, QHead
 elif(params['dataset'] == 'FashionMNIST'):
+    from models.mnist_model import Generator, Discriminator, DHead, QHead
+elif(params['dataset'] == 'StanfordDog'):
     from models.mnist_model import Generator, Discriminator, DHead, QHead
 
 # Set random seed for reproducibility.
@@ -56,6 +60,11 @@ elif(params['dataset'] == 'CelebA'):
     params['dis_c_dim'] = 10
     params['num_con_c'] = 0
 elif(params['dataset'] == 'FashionMNIST'):
+    params['num_z'] = 62
+    params['num_dis_c'] = 1
+    params['dis_c_dim'] = 10
+    params['num_con_c'] = 2
+elif(params['dataset'] == 'StanfordDog'):
     params['num_z'] = 62
     params['num_dis_c'] = 1
     params['dis_c_dim'] = 10
