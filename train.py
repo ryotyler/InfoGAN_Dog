@@ -156,7 +156,7 @@ for epoch in range(params['num_epochs']):
         output1 = discriminator(real_data)
         probs_real = netD(output1).view(-1)
         print(label.size())
-        print(output1.size())
+        print(probs_real.size())
         loss_real = criterionD(probs_real, label)
         # Calculate gradients.
         loss_real.backward()
