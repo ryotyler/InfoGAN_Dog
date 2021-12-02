@@ -6,4 +6,4 @@ params = {
     'beta1': 0.5,
     'beta2': 0.999,
     'save_epoch' : 25,# After how many epochs to save checkpoints and generate test output.
-    'dataset' : 'StanfordDgo'}# Dataset to use. Choose from {MNIST, StanfordDog, CelebA, FashionMNIST}. CASE MUST MATCH EXACTLY!!!!!
+    'dataset' : 'StanfordDog'}# Dataset to use. Choose from {MNIST, StanfordDog, CelebA, FashionMNIST}. CASE MUST MATCH EXACTLY!!!!!
