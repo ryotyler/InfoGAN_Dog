@@ -23,15 +23,6 @@ def parse_args():
             "A new dataset will be downloaded if the directory does not exist."
         ),
     )
-    parser.add_argument(
-        "--out_dir",
-        type=str,
-        default=os.path.join(root_dir, "out"),
-        help=(
-            "Path to output directory. "
-            "A new one will be created if the directory does not exist."
-        ),
-    )
 
     return parser.parse_args()
 
@@ -68,16 +59,6 @@ def download(args):
 
     download_data(
         args.data_dir, url="http://vision.stanford.edu/aditya86/ImageNetDogs/images.tar"
-    )
-
-    download_data(
-        args.out_dir,
-        url="https://github.com/deepgenerativemodels/default-project/releases/download/f.2021.v2/baselines-150k.tar",
-    )
-
-    download_data(
-        args.out_dir,
-        url="https://github.com/deepgenerativemodels/default-project/releases/download/f.2021.v2/baselines-295k.tar",
     )
 
 
