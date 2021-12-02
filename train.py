@@ -153,6 +153,7 @@ for epoch in range(params['num_epochs']):
         optimD.zero_grad()
         # Real data
         label = torch.full((b_size, ), real_label, device=device)
+        print(label)
         output1 = discriminator(real_data)
         probs_real = netD(output1).view(-1)
         loss_real = criterionD(probs_real, label)
@@ -181,7 +182,6 @@ for epoch in range(params['num_epochs']):
         output = discriminator(fake_data)
         label.fill_(real_label)
         probs_fake = netD(output).view(-1)
-        print(label)
         gen_loss = criterionD(probs_fake, label)
 
         q_logits, q_mu, q_var = netQ(output)
