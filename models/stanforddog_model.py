@@ -40,15 +40,11 @@ class Discriminator(nn.Module):
 
         self.conv1 = nn.Conv2d(3, 128, 4, 2, 1)
 
-        self.conv2 = nn.Conv2d(128, 256, 4, 2, 1, bias=False)
-        self.bn2 = nn.BatchNorm2d(256)
-
         self.conv3 = nn.Conv2d(256, 1024, 7, bias=False)
         self.bn3 = nn.BatchNorm2d(1024)
 
     def forward(self, x):
         x = F.leaky_relu(self.conv1(x), 0.1, inplace=True)
-        x = F.leaky_relu(self.bn2(self.conv2(x)), 0.1, inplace=True)
         x = F.leaky_relu(self.bn3(self.conv3(x)), 0.1, inplace=True)
 
         return x
