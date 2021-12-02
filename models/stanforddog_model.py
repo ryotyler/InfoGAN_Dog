@@ -15,7 +15,7 @@ class Generator(nn.Module):
         super().__init__()
 
         self.l1 = nn.Linear(nz, (bottom_width ** 2) * ngf)
-        self.unfatten = nn.Unflatten(1, (ngf, bottom_width, bottom_width))
+        # self.unfatten = nn.Unflatten(1, (ngf, bottom_width, bottom_width))
         self.block2 = GBlock(ngf, ngf, upsample=True)
         self.block3 = GBlock(ngf, ngf, upsample=True)
         self.block4 = GBlock(ngf, ngf, upsample=True)
@@ -28,7 +28,8 @@ class Generator(nn.Module):
 
     def forward(self, x):
         h = self.l1(x)
-        h = self.unfatten(h)
+        # h = self.unfatten(h)
+        h = torch.reshape(h, (128, 256, 4, 4))
         h = self.block2(h)
         h = self.block3(h)
         h = self.block4(h)
