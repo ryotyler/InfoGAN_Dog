@@ -181,6 +181,7 @@ for epoch in range(params['num_epochs']):
         output = discriminator(fake_data)
         label.fill_(real_label)
         probs_fake = netD(output).view(-1)
+        print(label)
         gen_loss = criterionD(probs_fake, label)
 
         q_logits, q_mu, q_var = netQ(output)
