@@ -155,11 +155,7 @@ for epoch in range(params['num_epochs']):
         label = torch.full((b_size, ), real_label, device=device)
         output1 = discriminator(real_data)
         probs_real = netD(output1).view(-1)
-        print(label.size())
-        print(probs_real.size())
         loss_real = criterionD(probs_real, label)
-        print(loss_real)
-        print(urmom)
         # Calculate gradients.
         loss_real.backward()
 
@@ -192,6 +188,9 @@ for epoch in range(params['num_epochs']):
         # Calculating loss for discrete latent code.
         dis_loss = 0
         for j in range(params['num_dis_c']):
+            print(q_logits)
+            print(target)
+            print(urmom)
             dis_loss += criterionQ_dis(q_logits[:, j*10 : j*10 + 10], target[j])
 
         # Calculating loss for continuous latent code.

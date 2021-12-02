@@ -154,7 +154,6 @@ for epoch in range(params['num_epochs']):
         # Real data
         label = torch.full((b_size, ), real_label, device=device)
         output1 = discriminator(real_data)
-        print(output1.size())
         probs_real = netD(output1).view(-1)
         loss_real = criterionD(probs_real, label)
         # Calculate gradients.
@@ -165,7 +164,6 @@ for epoch in range(params['num_epochs']):
         noise, idx = noise_sample(params['num_dis_c'], params['dis_c_dim'], params['num_con_c'], params['num_z'], b_size, device)
         fake_data = netG(noise)
         output2 = discriminator(fake_data.detach())
-        print(output2.size())
         probs_fake = netD(output2).view(-1)
         loss_fake = criterionD(probs_fake, label)
         # Calculate gradients.
