@@ -70,8 +70,8 @@ class DHead(nn.Module):
         self.conv = nn.Conv2d(128, 1, 1)
 
     def forward(self, x):
-        output = torch.reshape(torch.sigmoid(self.conv(torch.reshape(x, (1, 128, 1, 1)))), (128, 1))
-
+        output = torch.sigmoid(self.conv(torch.reshape(x, (1, 128, 1, 1))))
+        print(output.shape())
         return output
 
 class QHead(nn.Module):
