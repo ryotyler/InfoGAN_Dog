@@ -110,7 +110,7 @@ class DHead(nn.Module):
     def __init__(self):
         super().__init__()
 
-        self.conv = nn.Conv2d(128, 1, 1)
+        self.conv = nn.Conv2d(1024, 1, 1)
 
     def forward(self, x):
         output = torch.sigmoid(self.conv(x))
@@ -120,7 +120,7 @@ class QHead(nn.Module):
     def __init__(self):
         super().__init__()
 
-        self.conv1 = nn.Conv2d(128, 128, 1, bias=False)
+        self.conv1 = nn.Conv2d(1024, 128, 1, bias=False)
         self.bn1 = nn.BatchNorm2d(128)
 
         self.conv_disc = nn.Conv2d(128, 10, 1)
