@@ -24,7 +24,7 @@ elif(params['dataset'] == 'CelebA'):
 elif(params['dataset'] == 'FashionMNIST'):
     from models.mnist_model import Generator, Discriminator, DHead, QHead
 elif(params['dataset'] == 'StanfordDog'):
-    from models.mnist_model import Generator, Discriminator, DHead, QHead
+    from models.stanforddog_model import Generator, Discriminator, DHead, QHead
 
 # Set random seed for reproducibility.
 seed = 1123
