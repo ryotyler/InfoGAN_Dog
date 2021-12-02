@@ -188,6 +188,9 @@ for epoch in range(params['num_epochs']):
         # Calculating loss for discrete latent code.
         dis_loss = 0
         for j in range(params['num_dis_c']):
+            print(q_logits.size())
+            print(target.size())
+            print(urmom)
             dis_loss += criterionQ_dis(q_logits[:, j*10 : j*10 + 10], target[j])
 
         # Calculating loss for continuous latent code.
