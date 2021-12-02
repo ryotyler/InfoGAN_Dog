@@ -50,14 +50,17 @@ def get_data(dataset, batch_size):
         dataset = dsets.ImageFolder(root=root+'celeba/', transform=transform)
     
     elif dataset == 'StanfordDog':
-        transform = transforms.Compose([
-            transforms.Resize(32),
-            transforms.CenterCrop(32),
-            transforms.ToTensor(),
-            transforms.Normalize((0.5, 0.5, 0.5),
-                (0.5, 0.5, 0.5))])
-
-        dataset = dsets.ImageFolder(root=root+'stanforddog/', transform=transform)
+        dataset = dsets.ImageFolder(
+            root='data/Images',
+            transform=transforms.Compose(
+                [
+                    transforms.Resize(32),
+                    transforms.CenterCrop(32),
+                    transforms.ToTensor(),
+                    transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
+                ]
+            ),
+        )
     # Create dataloader.
     dataloader = torch.utils.data.DataLoader(dataset, 
                                             batch_size=batch_size, 
