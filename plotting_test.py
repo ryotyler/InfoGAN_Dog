@@ -26,7 +26,7 @@ device = torch.device("cuda:0" if(torch.cuda.is_available()) else "cpu")
 print(device, " will be used.\n")
 
 dataloader = get_data(params['dataset'], params['batch_size'])
-dataloader_mnist = get_data(params['MNIST'], params['batch_size'])
+dataloader_mnist = get_data('MNIST', params['batch_size'])
 
 sample_batch = next(iter(dataloader_mnist))
 plt.figure(figsize=(10, 10))
