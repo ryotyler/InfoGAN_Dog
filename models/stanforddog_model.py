@@ -23,7 +23,7 @@ class Generator(nn.Module):
         self.tconv3 = nn.ConvTranspose2d(128, 64, 4, 2, padding=1, bias=False)
         self.bn3 = nn.BatchNorm2d(64)
 
-        self.tconv4 = nn.ConvTranspose2d(64, 1, 4, 2, padding=1, bias=False)
+        self.tconv4 = nn.ConvTranspose2d(64, 3, 4, 2, padding=1, bias=False)
 
     def forward(self, x):
         x = F.relu(self.bn1(self.tconv1(x)))
