@@ -39,9 +39,9 @@ class Discriminator(nn.Module):
     def __init__(self):
         super().__init__()
 
-        self.conv1 = nn.Conv2d(3, 64, 4, 2, 1)
+        self.conv1 = nn.Conv2d(3, 128, 4, 2, 1)
 
-        self.conv2 = nn.Conv2d(64, 128, 4, 2, 1, bias=False)
+        self.conv2 = nn.Conv2d(128, 128, 4, 2, 1, bias=False)
         self.bn2 = nn.BatchNorm2d(128)
 
         self.conv3 = nn.Conv2d(128, 256, 7, bias=False)
