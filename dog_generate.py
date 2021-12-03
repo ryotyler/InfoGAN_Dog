@@ -3,6 +3,8 @@ import argparse
 import torch
 import torchvision.utils as vutils
 import numpy as np
+import matplotlib
+matplotlib.use('agg')
 import matplotlib.pyplot as plt
 
 parser = argparse.ArgumentParser()
