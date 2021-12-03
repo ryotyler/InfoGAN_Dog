@@ -61,8 +61,8 @@ for a in range(10):
         with torch.no_grad():
             generated_img1 = netG(noise).detach().cpu()
         # Display the generated image.
+        fig = plt.figure(figsize=(10, 10))
         plt.axis("off")
         plt.imshow(np.transpose(vutils.make_grid(generated_img1, nrow=10, padding=2, normalize=True), (1,2,0)))
         plt.savefig("Latent Perturbation /{}".format(k))
-        # plt.savefig("Epoch_%d_{}".format(params['dataset']) %(params['num_epochs']))
         print('Saved_{}'.format(k))
