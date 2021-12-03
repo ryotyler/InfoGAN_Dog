@@ -44,7 +44,7 @@ class Discriminator(nn.Module):
         self.conv2 = nn.Conv2d(128, 128, 4, 2, 1, bias=False)
         self.bn2 = nn.BatchNorm2d(128)
 
-        self.conv3 = nn.Conv2d(128, 256, 7, bias=False)
+        self.conv3 = nn.Conv2d(128, 256, 4, 2, 1, bias=False)
         self.bn3 = nn.BatchNorm2d(256)
 
     def forward(self, x):
