@@ -124,7 +124,7 @@ class QHead(nn.Module):
         self.conv1 = nn.Conv2d(256, 128, 4, bias=False)
         self.bn1 = nn.BatchNorm2d(128)
 
-        self.conv_disc = nn.Conv2d(128, 10, 1)
+        self.conv_disc = nn.Conv2d(128, 100, 1)
         self.conv_mu = nn.Conv2d(128, 1, 1)
         self.conv_var = nn.Conv2d(128, 1, 1)
 
