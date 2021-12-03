@@ -13,25 +13,26 @@ Architecture based on InfoGAN paper.
 class Generator(nn.Module):
     def __init__(self):
         super().__init__()
-
-        self.tconv1 = nn.ConvTranspose2d(230, 1024, 2, 1, bias=False)
-        self.bn1 = nn.BatchNorm2d(1024)
-
-        self.tconv2 = nn.ConvTranspose2d(1024, 128, 7, 1, bias=False)
-        self.bn2 = nn.BatchNorm2d(128)
-
-        self.tconv3 = nn.ConvTranspose2d(128, 64, 4, 2, padding=1, bias=False)
-        self.bn3 = nn.BatchNorm2d(64)
-
-        self.tconv4 = nn.ConvTranspose2d(64, 3, 4, 2, padding=1, bias=False)
-
+        
+        self.tconv1 = nn.ConvTranspose2d(230, 448, 2, 1, bias=False)
+        self.bn1 = nn.BatchNorm2d(448)
+        
+        self.tconv2 = nn.ConvTranspose2d(448, 256, 4, 2, padding=1, bias=False)
+        
+        self.bn2 = nn.BatchNorm2d(256)
+        
+        self.tconv3 = nn.ConvTranspose2d(256, 128, 4, 2, padding=1, bias=False)
+        
+        self.tconv4 = nn.ConvTranspose2d(128, 64, 4, 2, padding=1, bias=False)
+        
+        self.tconv5 = nn.ConvTranspose2d(64, 3, 4, 2, padding=1, bias=False)
     def forward(self, x):
         x = F.relu(self.bn1(self.tconv1(x)))
         x = F.relu(self.bn2(self.tconv2(x)))
-        x = F.relu(self.bn3(self.tconv3(x)))
-
-        img = torch.sigmoid(self.tconv4(x))
-
+        x = F.relu(self.tconv3(x))
+        x = F.relu(self.tconv4(x))
+        img = torch.tanh(self.tconv5(x))
+        
         return img
 
 class Discriminator(nn.Module):
