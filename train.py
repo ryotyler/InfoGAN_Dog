@@ -154,6 +154,7 @@ for epoch in range(params['num_epochs']):
         # Real data
         label = torch.full((b_size, ), real_label, device=device)
         output1 = discriminator(real_data)
+        print(output1.size())
         probs_real = netD(output1).view(-1)
         loss_real = criterionD(probs_real, label)
         # Calculate gradients.
