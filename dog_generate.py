@@ -13,6 +13,20 @@ args = parser.parse_args()
 
 from models.stanforddog_model import Generator
 
+def mix(i, m, n):
+
+    c = torch.zeros(50, 10, 10, device=device)
+    for j in range(10):
+        c[torch.arange(0, 50), j, i[0]] = 1.0
+
+    c[torch.arange(0, 50), m-1] = 0.0
+    c[torch.arange(0, 50), m-1, i[1]] = 1.0
+
+    c[torch.arange(0, 50), n-1] = 0.0
+    c[torch.arange(0, 50), n-1, i[1]] = 1.0
+
+    return c.view(50, -1, 1, 1)
+
 # Load the checkpoint file
 state_dict = torch.load(args.load_path)
 
@@ -25,48 +39,29 @@ params = state_dict['params']
 netG = Generator().to(device)
 # Load the trained generator weights.
 netG.load_state_dict(state_dict['netG'])
-print(netG)
 
-c = np.linspace(-2, 2, 10).reshape(1, -1)
-c = np.repeat(c, 10, 0).reshape(-1, 1)
-c = torch.from_numpy(c).float().to(device)
-c = c.view(-1, 1, 1, 1)
 
-zeros = torch.zeros(100, 1, 1, 1, device=device)
+idx = np.zeros((2, 50))
+idx[0] = np.array([1, 2, 5, 7, 9]).repeat(10)
+idx[1] = np.tile(np.arange(10), 5)
 
-# # Continuous latent code.
-# c2 = torch.cat((c, zeros), dim=1)
-# c3 = torch.cat((zeros, c), dim=1)
 
-idx = np.arange(10).repeat(10)
-dis_c = torch.zeros(100, 10, 1, 1, device=device)
-dis_c[torch.arange(0, 100), idx] = 1.0
 
-noise = torch.randn(100, 128, 1, 1, device=device)
+z = torch.randn(50, 128, 1, 1, device=device)
 
-# Discrete latent code
-for i in range(2):
-    noise = torch.cat((noise, dis_c.view(100, -1, 1, 1)), dim=1)
 
-# To see variation along c2 (Horizontally) and c1 (Vertically)
-# noise1 = torch.cat((z, c1), dim=1)
-# # To see variation along c3 (Horizontally) and c1 (Vertically)
-# noise2 = torch.cat((z, c1), dim=1)
+k = 0
+for a in range(10):
+    for b in range(10):
+        k += 1
 
-# Generate image.
-with torch.no_grad():
-    generated_img1 = netG(noise).detach().cpu()
-# Display the generated image.
-fig = plt.figure(figsize=(10, 10))
-plt.axis("off")
-plt.imshow(np.transpose(vutils.make_grid(generated_img1, nrow=10, padding=2, normalize=True), (1,2,0)))
-plt.savefig("Latent Perturbation {}".format(params['dataset']))
+        c = mix(idx, a+1, b+1)
+        noise = torch.cat((z, c), dim=1)
 
-# # Generate image.
-# with torch.no_grad():
-#     generated_img2 = netG(noise2).detach().cpu()
-# # Display the generated image.
-# fig = plt.figure(figsize=(10, 10))
-# plt.axis("off")
-# plt.imshow(np.transpose(vutils.make_grid(generated_img2, nrow=10, padding=2, normalize=True), (1,2,0)))
-# plt.show()
+        with torch.no_grad():
+            generated_img1 = netG(noise).detach().cpu()
+        # Display the generated image.
+        plt.axis("off")
+        plt.imshow(np.transpose(vutils.make_grid(generated_img1, nrow=10, padding=2, normalize=True), (1,2,0)))
+        plt.savefig('Latent Perturbation /{}'.format(k))
+        print('Saved_{}'.format(k))
