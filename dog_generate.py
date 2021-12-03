@@ -45,7 +45,7 @@ dis_c[torch.arange(0, 100), idx] = 1.0
 noise = torch.randn(100, 128, 1, 1, device=device)
 
 # Discrete latent code
-for i in range(10):
+for i in range(2):
     noise = torch.cat((noise, dis_c.view(100, -1, 1, 1)), dim=1)
 
 # To see variation along c2 (Horizontally) and c1 (Vertically)
