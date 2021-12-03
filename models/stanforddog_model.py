@@ -121,12 +121,12 @@ class QHead(nn.Module):
     def __init__(self):
         super().__init__()
 
-        self.conv1 = nn.Conv2d(256, 128, 2, bias=False)
+        self.conv1 = nn.Conv2d(256, 128, 4, bias=False)
         self.bn1 = nn.BatchNorm2d(128)
 
         self.conv_disc = nn.Conv2d(128, 10, 1)
-        self.conv_mu = nn.Conv2d(128, 2, 1)
-        self.conv_var = nn.Conv2d(128, 2, 1)
+        self.conv_mu = nn.Conv2d(128, 1, 1)
+        self.conv_var = nn.Conv2d(128, 1, 1)
 
     def forward(self, x):
         x = F.leaky_relu(self.bn1(self.conv1(x)), 0.1, inplace=True)
