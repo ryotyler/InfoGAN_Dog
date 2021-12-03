@@ -39,13 +39,13 @@ class Discriminator(nn.Module):
     def __init__(self):
         super().__init__()
 
-        self.conv1 = nn.Conv2d(3, 128, 4, 2, 1)
+        self.conv1 = nn.Conv2d(3, 64, 4, 2, 1)
 
-        self.conv2 = nn.Conv2d(128, 128, 4, 2, 1, bias=False)
+        self.conv2 = nn.Conv2d(64, 128, 4, 2, 1, bias=False)
         self.bn2 = nn.BatchNorm2d(128)
 
-        self.conv3 = nn.Conv2d(128, 1024, 7, bias=False)
-        self.bn3 = nn.BatchNorm2d(1024)
+        self.conv3 = nn.Conv2d(128, 256, 7, bias=False)
+        self.bn3 = nn.BatchNorm2d(256)
 
     def forward(self, x):
         x = F.leaky_relu(self.conv1(x), 0.1, inplace=True)
@@ -111,7 +111,7 @@ class DHead(nn.Module):
     def __init__(self):
         super().__init__()
 
-        self.conv = nn.Conv2d(1024, 1, 2)
+        self.conv = nn.Conv2d(256, 1, 4)
 
     def forward(self, x):
         output = torch.sigmoid(self.conv(x))
@@ -121,12 +121,12 @@ class QHead(nn.Module):
     def __init__(self):
         super().__init__()
 
-        self.conv1 = nn.Conv2d(1024, 128, 2, bias=False)
+        self.conv1 = nn.Conv2d(256, 128, 2, bias=False)
         self.bn1 = nn.BatchNorm2d(128)
 
-        self.conv_disc = nn.Conv2d(128, 10, 1)
-        self.conv_mu = nn.Conv2d(128, 2, 1)
-        self.conv_var = nn.Conv2d(128, 2, 1)
+        self.conv_disc = nn.Conv2d(128, 100, 1)
+        self.conv_mu = nn.Conv2d(128, 1, 1)
+        self.conv_var = nn.Conv2d(128, 1, 1)
 
     def forward(self, x):
         x = F.leaky_relu(self.bn1(self.conv1(x)), 0.1, inplace=True)

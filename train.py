@@ -68,7 +68,7 @@ elif(params['dataset'] == 'StanfordDog'):
     params['num_z'] = 128
     params['num_dis_c'] = 10
     params['dis_c_dim'] = 10
-    params['num_con_c'] = 2
+    params['num_con_c'] = 0
 
 # Plot the training images.
 sample_batch = next(iter(dataloader))
